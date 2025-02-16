@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Cadastro</h1>
+
+  <form action="{{ url_for('cadastro') }}" method="post">
+    <div>
+      <label for="username">Usuário:</label>
+      <input type="text" name="username" id="username" required>
+    </div>
+    <div>
+      <label for="password">Senha:</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    <div>
+      <label for="foto_perfil">Foto de Perfil (URL):</label>
+      <input type="url" name="foto_perfil" id="foto_perfil" placeholder="https://exemplo.com/foto.jpg">
+    </div>
+    <div>
+      <label for="bio">Bio:</label>
+      <textarea name="bio" id="bio" rows="4" placeholder="Escreva algo sobre você..."></textarea>
+    </div>
+    <div>
+      <label for="remember">
+        <input type="checkbox" id="remember" name="remember">
+        Lembrar de mim
+      </label>
+    </div>
+    <div>
+      <button type="submit">Cadastrar</button>
+    </div>
+  </form>
+
+  <p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login</a>.</p>
+{% endblock %}

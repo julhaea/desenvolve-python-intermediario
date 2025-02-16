@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        {% if user %}
+            <h1>Olá, {{ user.username }}!</h1>
+            {% if user.bio %}
+                <p class="bio">{{ user.bio }}</p>
+            {% endif %}
+
+            <form action="{{ url_for('cria_nota') }}" method="POST">
+                <textarea name="conteudo_nota" rows="4" placeholder="Digite sua nota aqui..." required></textarea>
+                <br>
+                <button type="submit">Adicionar Nota</button>
+            </form>
+
+            <h2>Notas de Todos os Usuários:</h2>
+            {% if notas %}
+                <ul>
+                    {% for nota, username in notas %}
+                        <li>
+                            <strong>{{ username }} ({{ nota.time.strftime('%d/%m/%Y') }}):</strong>
+                            {{ nota.conteudo }}
+                            
+                            {% if user.id == nota.user_id %}
+                                <form action="{{ url_for('excluir_nota', nota_id=nota.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Ainda não há notas.</p>
+            {% endif %}
+
+        {% else %}
+            <h1>Olá! Faça login para acessar as notas</h1>
+        {% endif %}
+    </div>
+{% endblock %}
